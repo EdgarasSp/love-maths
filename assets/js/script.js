@@ -13,6 +13,12 @@ document.addEventListener("DOMContentLoaded", function(){
         })
     }
     
+    //waits to see if enter was pressed, if yes the means user entered value and we should check answer loop.
+    document.getElementById("answer-box").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            checkAnswer();
+        }
+    })
     // added addition because it is our default game so it loads immediately
     
     runGame("addition");
@@ -23,7 +29,11 @@ document.addEventListener("DOMContentLoaded", function(){
  * and after the user's answer has been processed
  */
 function runGame(gameType){
+    //everytime, loop runs again it deletes the previous value entered by the user.
+    document.getElementById("answer-box").value = "";
 
+    // this basicly puts our curser automaticly in this input field so that you can type immediately
+    document.getElementById("answer-box").focus();
     //Create two random numbers between 1 and 25
     let num1 = Math.floor(Math.random()*25) +1;
     let num2 = Math.floor(Math.random()*25) +1;

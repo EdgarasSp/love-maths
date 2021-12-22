@@ -103,7 +103,7 @@ function calculateCorrectAnswer(){
     } else if (operator === "-") {
         return [operand1 - operand2, "subtract"];
     } else if (operator === "/") {
-        return [operand1 / operand2, "division"];
+        return [parseInt(operand1 / operand2), "division"];
     } else {
         alert(`Unimplemented operator ${gameType}`);
         throw`Unimplemented operator ${gameType}. Aborting!`; 
@@ -145,8 +145,10 @@ function displayMultiplyQuestion(operand1, operand2){
 }
 
 function displayDivisionQuestion(operand1, operand2){
-      // the .textContent = operand 1 means that the ID text pulled is set to argument i.e operand1
-   document.getElementById('operand1').textContent = operand1;
-   document.getElementById('operand2').textContent = operand2;
-   document.getElementById('operator').textContent = "/";
+    // just tp make sure that its always more than operand 2, by making operand 1 multiplied by operand 2
+    operand1 = operand1 * operand2;
+   
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = "/";
 }

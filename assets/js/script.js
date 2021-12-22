@@ -30,6 +30,12 @@ function runGame(gameType){
 
     if (gameType === "addition") {
         displayAdditionalQuestion(num1, num2);
+    } else if (gameType === "multiply") {
+        displayMultiplyQuestion (num1, num2);
+    } else if (gameType === "subtract") {
+        displaySubtractQuestion (num1, num2);
+    } else if (gameType === "division") {
+        displayDivisionQuestion (num1, num2);
     } else {
         alert(`Unknown game type: ${gameType}`);
         throw`Unknown game type: ${gameType}. Aborting!`;
@@ -53,8 +59,11 @@ function checkAnswer(){
 
     if (isCorrect) {
         alert(`Hey You got it right :D`);
+        // if correct increment the score, same for if incorrect
+        incrementScore();
     } else {
         alert(`Awwwwww.... you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
+        incrementWrongAnswer();
     }
 
     // tells program which program to run after this loop, basically from array pulling operator it tells to stay on the loop or use different.
@@ -79,19 +88,26 @@ function calculateCorrectAnswer(){
        // second after , will tell program to continue running Addition loop.
 
        return [operand1 + operand2, "addition"];
+    } else if (operator === "x") {
+       return [operand1 * operand2, "multiply"];
+    } else if (operator === "-") {
+        return [operand1 - operand2, "subtract"];
+    } else if (operator === "/") {
+        return [operand1 / operand2, "division"];
     } else {
         alert(`Unimplemented operator ${gameType}`);
         throw`Unimplemented operator ${gameType}. Aborting!`; 
     }
 }
 
-
 function incrementScore(){
-    
+    let oldScore = parseInt(document.getElementById("score").innerText);
+    document.getElementById("score").innerText = ++oldScore;
 }
 
 function incrementWrongAnswer(){
-    
+    let oldScore = parseInt(document.getElementById("incorrect").innerText);
+    document.getElementById("incorrect").innerText = ++oldScore;
 }
 
 // operand 1 and 2 are the numbers we will pass on for addition. generated in main game loop. 
@@ -103,16 +119,24 @@ function displayAdditionalQuestion(operand1, operand2){
     document.getElementById("operator").textContent = "+"; 
 }
 
-function displaySubtractQuestion(){
-    
+function displaySubtractQuestion(operand1, operand2){
+   // the .textContent = operand 1 means that the ID text pulled is set to argument i.e operand1
+   //back bit, basicly if operand 1 is greater than operand 2 then show operand 1 otherwise operand 2
+   document.getElementById('operand1').textContent = operand1 > operand2 ? operand1 : operand2;
+   document.getElementById('operand2').textContent = operand1 > operand2 ? operand2 : operand1;
+   document.getElementById('operator').textContent = "-";
 }
 
-function displayMultiplyQuestion(){
-    
+function displayMultiplyQuestion(operand1, operand2){
+          // the .textContent = operand 1 means that the ID text pulled is set to argument i.e operand1
+   document.getElementById('operand1').textContent = operand1;
+   document.getElementById('operand2').textContent = operand2;
+   document.getElementById('operator').textContent = "x";
 }
 
-// // function displayDivisionQuestion(operand1, operand2){
-//     // the .textContent = operand 1 means that the ID text pulled is set to argument i.e operand1
-//     document.getElementById('operand1').textContent = operand1;
-//     document.getElementById('operand2').textContent = operand2;
-//     document.getElementById('operator').textContent = "/";
+function displayDivisionQuestion(operand1, operand2){
+      // the .textContent = operand 1 means that the ID text pulled is set to argument i.e operand1
+   document.getElementById('operand1').textContent = operand1;
+   document.getElementById('operand2').textContent = operand2;
+   document.getElementById('operator').textContent = "/";
+}
